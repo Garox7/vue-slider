@@ -8,12 +8,38 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js" defer></script>
     <script src="javascript/script.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
     <div id="app">
 
+        <div class="hero__slider">
+
+            <div class="hero__preview">
+                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'active' : ''">
+                <div v-for="(descripion, i) in objSlide" class="hero__description" :class="i === indexImage ? 'active' : ''">
+                    <h1>{{ descripion.title }}</h1>
+                    <p> {{ descripion.text }}</p>
+                </div>
+            </div>
+            
+            <div class="hero__thumb">
+                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'selected' : ''">
+
+                <div class="hero__controls">
+                    <div class="control-up" @click="slideUp()">
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <div class="control-down">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
-    
 </body>
 </html>
