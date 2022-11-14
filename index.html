@@ -17,7 +17,7 @@
         <div class="hero__slider">
 
             <div class="hero__preview">
-                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'active' : ''">
+                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'active' : '' ">
                 <div v-for="(descripion, i) in objSlide" class="hero__description" :class="i === indexImage ? 'active' : ''">
                     <h1>{{ descripion.title }}</h1>
                     <p> {{ descripion.text }}</p>
@@ -31,7 +31,7 @@
                     <div class="control-up" @click="slideUp()">
                         <i class="fa-solid fa-chevron-up"></i>
                     </div>
-                    <div class="control-down">
+                    <div class="control-down" @click="slideDown()">
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                 </div>
