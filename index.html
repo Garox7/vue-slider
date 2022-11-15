@@ -14,31 +14,43 @@
 <body>
     <div id="app">
 
-        <div class="hero__slider">
+        <!-- <div class="background" :style="{'background-image': `url('img/${objSlide[indexImage].image}')`}"> -->
 
-            <div class="hero__preview">
-                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'active' : '' ">
-                <div v-for="(descripion, i) in objSlide" class="hero__description" :class="i === indexImage ? 'active' : ''">
-                    <h1>{{ descripion.title }}</h1>
-                    <p> {{ descripion.text }}</p>
+            <div class="hero__slider">
+                
+                <div class="hero__preview" v-for="(slide, i) in objSlide" :class="i === indexImage ? 'active' : '' " @mouseenter="pauseAutoplay" @mouseleave="resumeAutoplay">
+                    <img :key="slide.name" :src="'img/' + slide.image" :alt="slide.title">
+                    <div class="hero__description">
+                        <h1>{{ slide.title }}</h1>
+                        <p> {{ slide.text }}</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="hero__thumb">
-                <img v-for="(slide, i) in objSlide" :src="'img/' + slide.image" :alt="slide.title" :class="i === indexImage ? 'selected' : ''">
-
-                <div class="hero__controls">
-                    <div class="control-up" @click="slideUp()">
+                
+                <div class="hero__thumb">
+                    <img 
+                        v-for="(slide, i) in objSlide"
+                        :src="'img/' + slide.image"
+                        :alt="slide.title"
+                        :class="i === indexImage ? 'selected' : ''"
+                        @click="setActiveIndex(i)"
+                    >
+    
+                    <div class="control-up" @click="changeSlide(-1)">
                         <i class="fa-solid fa-chevron-up"></i>
                     </div>
-                    <div class="control-down" @click="slideDown()">
+                    <div class="control-down" @click="changeSlide(1)">
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
+
                 </div>
             </div>
 
-
+            <div class="button__controls">
+                <button class="stop__button" @click="isAutoplayActive ? stopAutoplay() : startAutoplay()">{{ isAutoplayActive ? 'stop' : 'start' }}</button>
+                <button @click="invertAutoplay()">Invert</button>
+            </div>
         </div>
+
 
     </div>
 </body>

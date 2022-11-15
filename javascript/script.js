@@ -1,6 +1,11 @@
 const app = new Vue ({
     el: '#app',
     data: {
+        indexImage: 0,
+        direction: 1,
+        timeSlider: 2 * 1000,
+        idInterval: 0,
+        isAutoplayActive: true,
         objSlide: [
             {
                 image: '01.webp',
@@ -28,28 +33,81 @@ const app = new Vue ({
                 text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
             },
         ],
+    },
+    methods: {
+        changeSlide(direction) {
+            if (direction > 0) {
+                clearInterval(this.idInterval);
+                this.startAutoplay();
 
-        indexImage: 0,
+                this.indexImage++;
+                if (this.indexImage === this.objSlide.length) {
+                    this.indexImage = 0;
+                }
 
+                console.log('sto andando verso giù!'); //DEBUG
+
+            } else {
+                clearInterval(this.idInterval);
+                this.startAutoplay();
+                
+                if (this.indexImage === 0) {
+                    this.indexImage = this.objSlide.length;
+                }
+                this.indexImage--;
+                
+                this.direction = -1;
+                
+                console.log('sto andando verso su!'); //DEBUG
+            }
+        },
+        
+        setActiveIndex(index) {
+            this.indexImage = index;
+
+            console.log('hai selezionato l\'immagine:', index); //DEBUG
+        },
+
+        controlAutoPlay() {
+            if(this.isAutoplayActive) {
+                this.stopAutoplay()
+            } else {
+                this.startAutoplay()
+            }
+        },
+
+        stopAutoplay() {
+            clearInterval(this.idInterval);
+            this.isAutoplayActive = false;
+        },
+
+        startAutoplay() {
+            this.idInterval = setInterval(() => this.changeSlide(this.direction), this.timeSlider);
+            this.isAutoplayActive = true;
+        },
+
+        invertAutoplay() {
+            this.direction *= -1;
+
+            console.log('ho cambiato direzione'); //DEBUG
+        },
+
+        pauseAutoplay() {
+            this.stopAutoplay();
+
+            console.log('sei dentro lo slide'); //DEBUG
+        },
+
+        resumeAutoplay() {
+            if(this.isAutoplayActive) {
+                this.startAutoplay();
+            }
+
+            console.log('sei uscito dallo slide'); //DEBUG
+        },
     },
 
-    methods: {
-        slideUp() {
-            if (this.indexImage === 0) {
-                this.indexImage = this.objSlide.length;
-            }
-            this.indexImage--;
-
-            console.log('sto andando verso su!');
-        },
-
-        slideDown() {
-            this.indexImage++;
-            if (this.indexImage === this.objSlide.length) {
-                this.indexImage = 0;
-            }
-
-            console.log('sto andando verso giù!');
-        },
+    mounted() {
+        this.isAutoplayActive ? this.startAutoplay() : '';
     }
 });

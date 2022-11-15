@@ -22,6 +22,12 @@ img {
     object-position: center;
 }
 
+/* SISTEMAMI */
+/* .background {
+    height: 100vh;
+    width: 100vw;
+} */
+
 /* SLIDER */
 .hero__slider {
     margin: 0 auto;
@@ -33,18 +39,14 @@ img {
 .hero__preview {
     flex: 1 1 70%;
     position: relative;
-}
-
-.hero__preview img {
     display: none;
 }
 
-.hero__preview img.active {
+.hero__preview.active {
     display: block;
 }
 
 .hero__description {
-    display: none;
     color: white;
     max-width: 500px;
     text-align: right;
@@ -52,10 +54,6 @@ img {
     position: absolute;
     bottom: 0;
     right: 0;
-}
-
-.hero__description.active {
-    display: block;
 }
 
 .hero__description p {
@@ -80,31 +78,45 @@ img {
     border: 1px solid white;
 }
 
-.hero__controls {
-    color: white;
-    width: 100%;
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 10;    
-}
-
-.control-up, .control-down {
+.control-up {
     background-image: linear-gradient(rgba(255, 255, 255, .9), transparent 90%);
     background-color: rgba(255, 255, 255, .1);
+    color: white;
     width: 100%;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 0%;
 }
 
 .control-down {
-    background-image: linear-gradient(transparent, rgba(255, 255, 255, .9)); ;
+    background-image: linear-gradient(transparent, rgba(255, 255, 255, .9));
+    background-color: rgba(255, 255, 255, .1);
+    color: white;
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
 }
 
 .control-up:hover, .control-down:hover {
     background-color: rgba(255, 255, 255, .5);
+}
+
+.button__controls {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button__controls button {
+    height: 2rem;
+    width: 150px;
 }
